@@ -1,0 +1,8 @@
+
+body {
+    font-family: arial, sans-serif;
+    background-color: lightblue;
+    color: white;
+    text-shadow: 2px 2px black;
+    margin: 30px
+}
