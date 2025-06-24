@@ -1,0 +1,16 @@
+
+let name = "Brendan O'Connor";
+console.log(name);
+let desiredSalary = 50000;
+console.log(desiredSalary);
+let vetStatus = false;
+console.log(vetStatus);
+let friends = ["Spence", "Matt", "Ben"];
+console.log(friends);
+let friendsSalary = [200000, 75000, 80000];
+console.log(friendsSalary);
+let friend = {
+    firstName: "Jack",
+    lastName: "Dunn",
+    desiredSalary: 100000
+}
