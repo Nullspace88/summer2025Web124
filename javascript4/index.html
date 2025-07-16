@@ -1,0 +1,89 @@
+<!-- Brendan O'Connor 7/15/25 -->
+<!-- majority of code from Javascript30 https://github.com/wesbos/JavaScript30 -->
+<!-- new: ajax fetch, promises, regex -->
+<!-- changes html: none css: none javascript: clicking on the menu item autocompletes the city name of the city clicked on -->
+<!-- isNumeric from stackoverflow https://stackoverflow.com/questions/175739/how-can-i-check-if-a-string-is-a-valid-number -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Type Ahead 👀</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://fav.farm/🔥" />
+</head>
+<body>
+
+  <form class="search-form">
+    <input type="text" class="search" placeholder="City or State">
+    <ul class="suggestions">
+      <li>Filter for a city</li>
+      <li>or a state</li>
+    </ul>
+  </form>
+<script>
+const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+  const cities = [];
+
+  const prom = fetch(endpoint)
+	.then(blob => blob.json())
+	      .then(data => cities.push(...data));
+  console.log(prom);
+
+  function findMatches(wordToMatch, cities) {
+      return cities.filter(place => {
+	  // here we need to figure out if the city or state matches what was searched
+	  const regex = new RegExp(wordToMatch, 'gi');
+	  return place.city.match(regex) || place.state.match(regex)
+      });
+  }
+
+  function numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  function isNumeric(value) {
+      return /^-?\d+$/.test(value);
+  }
+
+  function displayMatches() {
+      const matchArray = findMatches(this.value, cities);
+      const html = matchArray.map(place => {
+	  const regex = new RegExp(this.value, 'gi');
+	  const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+	  const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+	  return `
+<li>
+    <span class="name">${cityName}, ${stateName}</span>
+    <span class="population">${numberWithCommas(place.population)}<span>
+</li>
+`
+      }).join('');
+      suggestions.innerHTML = html;
+  }
+
+  function handleLiClick(event) {
+      const liText = event.target.textContent.toLowerCase();
+      if (liText == "filter for a city" || liText == "or a state") {
+	  return;
+      } else {
+	  const updatedValue = liText.split("  ")[0].split(",")[0];
+	  if (isNumeric(updatedValue)) return;
+	  searchInput.value = updatedValue;
+	  let event = new Event('change');
+	  searchInput.dispatchEvent(event);
+      }
+	  
+  }
+
+  const searchInput = document.querySelector('.search');
+  const suggestions = document.querySelector('.suggestions');
+
+  suggestions.addEventListener('click', handleLiClick);
+
+  searchInput.addEventListener('change', displayMatches);
+  searchInput.addEventListener('keyup', displayMatches);
+  
+</script>
+</body>
+</html>
