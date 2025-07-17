@@ -17,6 +17,7 @@ function timer(seconds) {
     
     countdown = setInterval(() => {
 	const secondsLeft = Math.round((then - Date.now()) / 1000);
+	audio.currentTime = 0;
 	audio.play();
 	if(secondsLeft < 0) {
 	    alarm.play();
