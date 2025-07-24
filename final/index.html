@@ -1,0 +1,75 @@
+<!Doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+</head>
+  <body>
+    <h1>JavaScript calculator</h1>
+    <label for="num">Enter your desired number!</label>
+    <input type="number" id="num">
+    <button id="calc">Calculate</button><br>
+    <table>
+      <p id="add">addition</p>
+      <p id="subtract">subtraction</p>
+      <p id="multiply">multiplication</p>
+      <p id="divide">division</p>
+    </table>
+     
+    <script>
+      function addition() {
+	  let addStr = "addition" + "<br>";
+	  let num = Number(document.getElementById("num").value);
+	  let addSection = document.getElementById("add");
+	  for(let i=0; i <= 10; i++) {
+	      addStr += `${i} + ${num} = ${i+num}<br>`
+	  }
+	  addSection.innerHTML = addStr;
+      }
+
+      function subtraction() {
+	  let subStr = "subtraction" + "<br>";
+	  let num = Number(document.getElementById("num").value);
+	  let subSection = document.getElementById("subtract");
+	  let i = 0;
+	  while (i <= 10) {
+	      subStr += `${i} - ${num} = ${i-num}<br>`
+	      i++;
+	  }
+	  subSection.innerHTML = subStr;
+      }
+
+      function multiplication() {
+	  let multStr = "multiplication" + "<br>";
+	  let num = Number(document.getElementById("num").value);
+	  let multSection = document.getElementById("multiply");
+	  let i = 0;
+	  do {
+	      multStr += `${i} x ${num} = ${i*num}<br>`
+	      i++;
+	  } while (i <= 10)
+	  multSection.innerHTML = multStr;
+      }
+
+       function division() {
+	  let divStr = "division" + "<br>";
+	  let num = Number(document.getElementById("num").value);
+	  let divSection = document.getElementById("divide");
+	  for(let i=0; i <= 10; i++) {
+	      divStr += `${i} / ${num} = ${(i/num).toFixed(2)}<br>`
+	  }
+	  divSection.innerHTML = divStr;
+      }
+
+      function calcAll() {
+	  addition();
+	  subtraction();
+	  multiplication();
+	  division();
+      }
+      let calculate = document.getElementById("calc");
+      calculate.addEventListener("click", calcAll);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<!Doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    
+  </head>
+  <body>
+    <h1>JavaScript calculator</h1>
+    <label for="num">Enter your desired number!</label>
+    <input type="number" id="num">
+    <button id="calc">Calculate</button><br>
+    <p id="add">addition</p>
+    <p id="subtract">subtraction</p>
+    <p id="multiply">multiplication</p>
+    <p id="divide">division</p>
+
+    <script>
+      function addition() {
+	  let addStr = "";
+	  let num = document.getElementById("num").textContent;
+	  for(let i=0; i <= 10; i++) {
+	      addStr += `${i} + ${num} = ${i+num}\n`
+	      console.log(addStr);
+	  }
+      }
+
+      let calculate = document.getElementById("calc");
+      calculate.addEventListener("click", addition);
+    </script>
+  </body>
+</html>
